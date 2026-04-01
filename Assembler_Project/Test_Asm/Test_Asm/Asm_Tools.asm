@@ -45,6 +45,7 @@ Get_Pos_Address proc
 	ret
 
 Get_Pos_Address endp
+
 ;-----------------------------------------------------------------------------------------------------------------------
 Draw_Line_Horizontal proc
 ; extern "C" void Draw_Line_Horizontal(CHAR_INFO *screen_buffer, SPos pos, CHAR_INFO symbol);
@@ -77,6 +78,53 @@ Draw_Line_Horizontal proc
 	ret
 
 Draw_Line_Horizontal endp
+
+;-----------------------------------------------------------------------------------------------------------------------
+Draw_Line_Vertical proc
+; extern "C" void Draw_Line_Vertical(CHAR_INFO *screen_buffer, SPos pos, CHAR_INFO symbol);
+; Параметры
+; RCX - screen_buffer
+; RDX - pos
+; R8 - symbol
+; Возврат: нет
+	
+	push rax
+	push rcx
+	push rdi
+	push r11
+
+	; 1. Вычисляем адрес вывода
+	call Get_Pos_Address ; RDI = позиция символа в буфере screen_buffer в позиции pos
+
+	; 2. Вычисление коррекции позиции вывода
+	mov r11, rdx     ; R11 = pos
+	shr r11, 32
+	movzx r11, r11w  ; R11 = R11W = pos.Screen_Width
+	dec r11
+	shl r11, 2       ; R11 = R11 * 4 = ширина экрана в байтах
+
+	; 3. Готовим счётчик цикла
+	mov rcx, rdx
+	shr rcx, 48      ; RCX = CX = pos.Len
+
+	mov eax, r8d     ; EAX = symbol
+
+_1:
+	stosd            ; Выводим символ
+	add rdi, r11
+
+	loop _1
+
+	
+	pop r11
+	pop rdi
+	pop rcx
+	pop rax
+
+	ret
+
+Draw_Line_Vertical endp
+
 ;-----------------------------------------------------------------------------------------------------------------------
 
 Show_Colors proc

@@ -124,10 +124,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Test_Asm.cpp" />
+    <ClCompile Include="Main\Main.cpp" />
+    <ClCompile Include="Panel\Panel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <MASM Include="Asm_Tools.asm" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Main\Main.h" />
+    <ClInclude Include="Panel\Panel.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
