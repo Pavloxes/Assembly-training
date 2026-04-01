@@ -65,9 +65,9 @@ int main(void)
     CHAR_INFO symbol{};
 
     symbol.Char.UnicodeChar = L'X';
-    symbol.Attributes = 0x50;
+    symbol.Attributes = 0x1b;
 
-    SPos pos(2, 1, screen_buffer_info.dwSize.X, 10);
+    SPos pos(50, 8, screen_buffer_info.dwSize.X, 10);
 
     //Draw_Line_Horizontal(screen_buffer, pos, symbol);
 
@@ -79,7 +79,7 @@ int main(void)
         return 1;
     }
 
-    Sleep(5000);
+    Sleep(150 * 1000);
 
     // Restore the original active screen buffer.
 

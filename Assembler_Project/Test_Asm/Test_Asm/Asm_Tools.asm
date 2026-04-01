@@ -87,13 +87,53 @@ Show_Colors proc
 ; R8 - symbol
 ; Возврат: нет
 
+	push rax
+	push rbx
+	push rcx
+	push rdi
+	push r10
+	push r11
+
 	; 1. Вычисляем адрес вывода
 	call Get_Pos_Address ; RDI = позиция символа в буфере screen_buffer в позиции pos
+
+	mov r10, rdi
+
+	; 2. Вычисление коррекции позиции вывода
+	mov r11, rdx     ; R11 = pos
+	shr r11, 32
+	movzx r11, r11w  ; R11 = R11W = pos.Screen_Width
+	shl r11, 2       ; R11 = R11 * 4 = ширина экрана в байтах
+
+	; 3. Готовим циклы
 	mov rax, r8
 
 	and rax, 0ffffh
+	mov rbx, 16
 
+	xor rcx, rcx
+
+_0:
+	mov cl, 16
+
+_1:
 	stosd
+	add rax, 010000h ; Инкрементируем часть регистра, в котором хранится цвет(атрибут) символа
+
+	loop _1
+
+	add r10, r11
+	mov rdi, r10
+
+	dec rbx
+	jnz _0
+
+	pop r11
+	pop r10
+	pop rdi
+	pop rcx
+	pop rbx
+	pop rax
 
 	ret
 
