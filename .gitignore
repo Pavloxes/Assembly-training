@@ -1,0 +1,34 @@
+# Keep only source/project files needed to open and build in Visual Studio.
+
+# Local IDE state
+.vs/
+*.suo
+*.user
+*.VC.db
+*.VC.opendb
+
+# Build outputs
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Bb]uild/
+[Oo]ut/
+*.obj
+*.o
+*.pdb
+*.idb
+*.ilk
+*.ipdb
+*.iobj
+*.tlog
+*.lastbuildstate
+*.log
+*.exe
+*.dll
+*.lib
+*.exp
+*.recipe
+
+# Backups / temporary copies
+Backup/
