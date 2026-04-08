@@ -20,7 +20,7 @@ Get_Pos_Address proc
 ; RDX - pos
 ; Возврат: RDI
 
-	; 1. Вычисляем адрес вывода: addres_offset = (pos.Y_Pos * pos.Screen_Width + pos.X_Pos) * 4
+	; 1. Вычисляем адрес вывода: address_offset = (pos.Y_Pos * pos.Screen_Width + pos.X_Pos) * 4
 	; 1.1 Вычисляем pos.Y_Pos * pos.Screen_Width
 	mov rax, rdx
 	shr rax, 16   ; AX = pos.Y_Pos
@@ -40,7 +40,7 @@ Get_Pos_Address proc
 	shl rax, 2    ; RAX = RAX * 4 = RAX << 2 = RAX * 2 ** 2 = (pos.Y_Pos * pos.Screen_Width + pos.X_Pos) * 4
 
 	mov rdi, rcx  ; RDI = screen_buffer
-	add rdi, rax  ; RDI = screen_buffer + addres_offset
+	add rdi, rax  ; RDI = screen_buffer + address_offset
 
 	ret
 
